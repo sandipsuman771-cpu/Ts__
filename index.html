@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Sazuuuuuu ❤️</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Icons (Phosphor Icons for luxury look) -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Preload Critical Images -->
+  
+  
+  
+  <!-- Preload Critical Images -->
+  
+  
+  
+  <!-- Preload Critical Images -->
+  <link rel="preload" href="./assets/gallery/photo-01.jpg" as="image">
+  <link rel="preload" href="./assets/gallery/photo-02.jpg" as="image">
+  
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor">❤️</div>
+  <div id="cursor-trail-container"></div>
+
+  <!-- Background Effects Container -->
+  <div id="bg-effects">
+    <div class="gradient-bg"></div>
+    <div id="particles-container"></div>
+  </div>
+
+  <!-- Audio Player -->
+  <audio id="bg-music" loop>
+    <!-- Placeholder romantic piano music -->
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_73bb613e73.mp3?filename=romantic-piano-111197.mp3" type="audio/mpeg">
+  </audio>
+  <div id="music-controls" class="hidden">
+    <button id="theme-btn" aria-label="Toggle Theme" title="Toggle Day/Night"><i class="ph ph-moon"></i></button>
+    <button id="mute-btn" aria-label="Toggle Music" title="Play/Pause"><i class="ph ph-speaker-high"></i></button>
+  </div>
+
+  <!-- Virtual Teddy -->
+  <div id="virtual-teddy" class="hidden">
+    <div class="teddy-emoji">🧸</div>
+    <div id="teddy-speech" class="hidden balloon">Hi!</div>
+  </div>
+
+  <!-- Daily Love Generator -->
+  <div id="daily-love-widget" class="glass-panel hidden">
+    <p class="script-font" id="daily-quote">"Loading love..."</p>
+  </div>
+
+  <!-- Extras Popups (Hidden by default) -->
+  <div id="popup-overlay" class="hidden">
+    <!-- Secret Heart Popup -->
+    <div id="popup-secret" class="glass-popup hidden">
+      <button class="close-popup"><i class="ph ph-x"></i></button>
+      <div class="popup-content">
+        <h2>My happiest place is wherever you are. ❤️</h2>
+        <div class="pulse-heart-large">❤️</div>
+      </div>
+    </div>
+    
+    <!-- Mini Memory Box Popup -->
+    <div id="popup-memory-box" class="glass-popup hidden">
+      <button class="close-popup"><i class="ph ph-x"></i></button>
+      <div class="popup-content">
+        <div class="polaroid-wrapper">
+          <div class="polaroid">
+            <img src="./assets/gallery/photo-02.jpg" alt="Memory Box Photo" class="popup-img">
+            <p class="caption">Our beautiful moments.</p>
+          </div>
+        </div>
+        <p class="memory-note">You are my favorite memory, and my favorite future.</p>
+        <div class="pulse-heart-small">❤️</div>
+      </div>
+    </div>
+    
+    <!-- Lightbox for Gallery -->
+    <div id="lightbox" class="hidden">
+      <button class="close-lightbox"><i class="ph ph-x"></i></button>
+      <img id="lightbox-img" src="" alt="Gallery Preview">
+    </div>
+    
+    <!-- Secret Envelope Letter Popup -->
+    <div id="popup-secret-envelope" class="glass-popup hidden">
+      <button class="close-popup"><i class="ph ph-x"></i></button>
+      <div class="popup-content envelope-paper">
+        <h2 class="script-font">My Secret Message</h2>
+        <p class="body-font">I love you more than words can express. You are my light in the dark, my comfort in the storm, and my home forever. - Pussu babbyyyy ❤️</p>
+      </div>
+    </div>
+
+    <!-- Achievement Popup -->
+    <div id="popup-achievement" class="glass-popup hidden achievement-style">
+      <button class="close-popup"><i class="ph ph-x"></i></button>
+      <div class="popup-content">
+        <div class="trophy-icon">🏆</div>
+        <h2 class="display-font">Achievement Unlocked</h2>
+        <h3 class="script-font">"World's Most Loved Girlfriend"</h3>
+        <p class="body-font mt-4">Awarded to <strong>shazuuu Darlinggg ❤️</strong></p>
+        <p class="body-font signature">Signed: Pussu babbyyyy ❤️</p>
+      </div>
+    </div>
+
+    <!-- Found Pussu Popup -->
+    <div id="popup-pussu-found" class="glass-popup hidden">
+      <button class="close-popup"><i class="ph ph-x"></i></button>
+      <div class="popup-content">
+        <h2>You found all the Pussu icons! 🕵️‍♀️❤️</h2>
+        <p>Your reward: A lifetime supply of hugs and kisses! (Redeemable immediately)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wish Jar Floating Icon -->
+  <div id="wish-jar-btn" class="floating-btn hidden">
+    <span class="jar-icon">🏺</span>
+    <div id="wish-toast" class="hidden"></div>
+  </div>
+
+  <!-- Password Screen -->
+  <div id="lock-screen" class="active">
+    <div class="lock-bg-blur"></div>
+    <div class="lock-card glass-panel">
+      <div class="lock-icon pulse-heart-large">❤️</div>
+      <h1 class="elegant-title">For Someone Very Special ❤️</h1>
+      <p class="subtitle">This surprise has been created only for you.</p>
+      
+      <div class="input-group">
+        <input type="password" id="password-input" placeholder="Enter the secret key..." />
+        <div class="checkbox-group">
+          <input type="checkbox" id="show-password" />
+          <label for="show-password">Show Password</label>
+        </div>
+        <button id="unlock-btn" class="luxury-btn">Unlock ❤️</button>
+      </div>
+      
+      <div id="error-msg-container" class="hidden">
+        <p class="error-msg">Oops... that's not the secret key ❤️</p>
+        <div class="sad-heart-anim">💔</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="hidden">
+
+    <!-- Hero Section -->
+    <section id="hero" class="fullscreen-section">
+      <div class="hero-bg parallax" style="background-image: url('./assets/gallery/photo-01.jpg');"></div>
+      <div class="hero-overlay"></div>
+      
+      <div class="hero-content fade-in-up">
+        <h1 class="hero-title script-font">Happy Birthday</h1>
+        <h2 class="hero-subtitle display-font">My Beautiful Sazuuuuuu ❤️</h2>
+        
+        <p class="hero-text body-font">
+          To the girl who brought magic into my life. Every moment with you feels like a dream I never want to wake up from. Today is all about celebrating the incredible person you are.
+        </p>
+        
+        <div class="countdown-glass">
+          <p class="countdown-label script-font">Waiting for our special day...</p>
+          <div id="countdown" class="countdown-timer display-font">
+            <div class="time-block"><span id="days">00</span><small>Days</small></div><span class="colon">:</span>
+            <div class="time-block"><span id="hours">00</span><small>Hours</small></div><span class="colon">:</span>
+            <div class="time-block"><span id="minutes">00</span><small>Minutes</small></div><span class="colon">:</span>
+            <div class="time-block"><span id="seconds">00</span><small>Seconds</small></div>
+          </div>
+          <p class="countdown-date body-font">12 August 2026</p>
+        </div>
+      </div>
+      
+      <div class="scroll-indicator">
+        <p class="script-font">Scroll for our story</p>
+        <i class="ph ph-arrow-down bounce"></i>
+      </div>
+    </section>
+
+    <!-- Floating Quote 1 -->
+    <div class="floating-quote parallax-slow reveal">
+      <p class="script-font">"In all the world, there is no heart for me like yours."</p>
+    </div>
+
+    <!-- Section: Our Love (10 Reasons) -->
+    <section id="reasons" class="content-section">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">10 Reasons Why I Love You ❤️</h2>
+        <div class="reasons-grid">
+          <!-- Populated by JS to stagger animations cleanly -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Floating Quote 2 -->
+    <div class="floating-quote parallax-slow reveal">
+      <p class="script-font">"I look at you and see the rest of my life in front of my eyes."</p>
+    </div>
+
+    <!-- Section: Our Story Timeline -->
+    <section id="story" class="content-section">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Our Story</h2>
+        <div class="luxury-timeline">
+          
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass-panel">
+              <div class="timeline-img-wrapper">
+                <img src="./assets/gallery/photo-03.jpg" alt="First Meeting" class="timeline-img">
+              </div>
+              <div class="timeline-text">
+                <h3 class="display-font">Where Our Story Began ❤️</h3>
+                <span class="date script-font">Placeholder Date</span>
+                <p class="body-font fade-in-up">Among countless faces, destiny chose yours. That ordinary day quietly became the beginning of the most beautiful chapter of my life.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass-panel">
+              <div class="timeline-img-wrapper">
+                <img src="./assets/gallery/photo-04.jpg" alt="First Smile" class="timeline-img">
+              </div>
+              <div class="timeline-text">
+                <h3 class="display-font">The Smile That Stole My Heart 😊</h3>
+                <span class="date script-font">Placeholder Date</span>
+                <p class="body-font fade-in-up">One smile from you was enough to brighten my entire world. From that moment, happiness started wearing your face.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass-panel">
+              <div class="timeline-img-wrapper">
+                <img src="./assets/gallery/photo-05.jpg" alt="First Selfie" class="timeline-img">
+              </div>
+              <div class="timeline-text">
+                <h3 class="display-font">A Moment Frozen Forever 📸</h3>
+                <span class="date script-font">Placeholder Date</span>
+                <p class="body-font fade-in-up">This wasn't just a picture—it became one of my favorite memories. Every time I see it, I relive the happiness we shared.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass-panel">
+              <div class="timeline-img-wrapper">
+                <img src="./assets/gallery/photo-06.jpg" alt="First Date" class="timeline-img">
+              </div>
+              <div class="timeline-text">
+                <h3 class="display-font">Together Felt Like Home 🤍</h3>
+                <span class="date script-font">Placeholder Date</span>
+                <p class="body-font fade-in-up">There was nothing extraordinary about the place, but being beside you made every second unforgettable. That's when I realized the best destination would always be you.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass-panel">
+              <div class="timeline-img-wrapper">
+                <img src="./assets/gallery/photo-07.jpg" alt="First Gift" class="timeline-img">
+              </div>
+              <div class="timeline-text">
+                <h3 class="display-font">Little Moments, Endless Love 🎁</h3>
+                <span class="date script-font">Placeholder Date</span>
+                <p class="body-font fade-in-up">The greatest gifts were never wrapped in paper—they were your time, your laughter, and every memory we created together.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass-panel">
+              <div class="timeline-img-wrapper">
+                <img src="./assets/gallery/photo-08.jpg" alt="Favorite Memory" class="timeline-img">
+              </div>
+              <div class="timeline-text">
+                <h3 class="display-font">One Memory, A Thousand Heartbeats 💖</h3>
+                <span class="date script-font">Placeholder Date</span>
+                <p class="body-font fade-in-up">If I could relive one memory forever, it would be this one. Because every glance, every smile, and every second with you is priceless.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass-panel">
+              <div class="timeline-img-wrapper">
+                <img src="./assets/gallery/photo-09.jpg" alt="Future Dreams" class="timeline-img">
+              </div>
+              <div class="timeline-text">
+                <h3 class="display-font">Every Tomorrow Starts With You 🌹</h3>
+                <span class="date script-font">Forever</span>
+                <p class="body-font fade-in-up">No matter where life takes us, my favorite place will always be beside you. Here's to countless adventures, endless laughter, and a lifetime of writing our story together.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Memory Gallery -->
+    <section id="gallery" class="content-section">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Memory Gallery</h2>
+        <p class="text-center body-font reveal" style="margin-bottom: 3rem; opacity: 0.8;">A glimpse into our beautiful moments...</p>
+        
+        <div class="masonry-gallery reveal">
+          <div class="gallery-item"><img src="./assets/gallery/photo-10.jpg" alt="Memory 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="./assets/gallery/photo-11.jpg" alt="Memory 2" loading="lazy"></div>
+          <div class="gallery-item tall"><img src="./assets/gallery/photo-12.jpg" alt="Memory 3" loading="lazy"></div>
+          <div class="gallery-item wide"><img src="./assets/gallery/photo-13.jpg" alt="Memory 4" loading="lazy"></div>
+          <div class="gallery-item"><img src="./assets/gallery/photo-14.jpg" alt="Memory 5" loading="lazy"></div>
+          <div class="gallery-item tall"><img src="./assets/gallery/photo-01.jpg" alt="Memory 6" loading="lazy"></div>
+          <div class="gallery-item"><img src="./assets/gallery/photo-02.jpg" alt="Memory 7" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mini Memory Box Button (In flow) -->
+    <div class="text-center" style="margin: 4rem 0;">
+      <button id="open-memory-box" class="luxury-btn reveal">Open Our Memory Box 🎁</button>
+    </div>
+
+    <!-- Section: Surprise Gift Boxes -->
+    <section id="gift-boxes" class="content-section">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Surprise Gifts 🎁</h2>
+        <p class="text-center body-font reveal mb-4">Pick a box, any box... but only one holds the real surprise!</p>
+        <div class="gift-grid">
+          <div class="gift-box reveal" data-content="cute joke">🎁</div>
+          <div class="gift-box reveal" data-content="funny meme">🎁</div>
+          <div class="gift-box reveal" data-content="romantic message">🎁</div>
+          <div class="gift-box reveal" data-content="virtual flowers">🎁</div>
+          <div class="gift-box reveal" data-content="real surprise">🎁</div>
+          <div class="gift-box reveal" data-content="chocolate animation">🎁</div>
+          <div class="gift-box reveal" data-content="hug animation">🎁</div>
+          <div class="gift-box reveal" data-content="kiss animation">🎁</div>
+        </div>
+        <div id="gift-result-modal" class="glass-panel hidden text-center mt-4">
+          <h3 id="gift-result-text" class="display-font"></h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Mini Games Hub -->
+    <section id="mini-games" class="content-section">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Let's Play A Game 🎮</h2>
+        
+        <div class="games-container">
+          
+          <!-- Love Quiz -->
+          <div class="game-card glass-panel reveal text-center" id="love-quiz-container">
+            <h3 class="display-font">The Love Quiz</h3>
+            <p>10 questions to prove you know us perfectly!</p>
+            <button class="luxury-btn mt-4" id="start-quiz-btn">Start Quiz</button>
+            <div id="quiz-area" class="hidden mt-4">
+              <p id="quiz-question" class="display-font" style="font-size: 1.5rem;"></p>
+              <div class="quiz-options mt-4">
+                <button class="luxury-btn outline" id="quiz-opt-1">Option 1</button>
+                <button class="luxury-btn outline" id="quiz-opt-2">Option 2</button>
+              </div>
+            </div>
+            <div id="quiz-result" class="hidden mt-4 script-font" style="font-size: 2rem; color: var(--rose-pink);"></div>
+          </div>
+
+          <!-- Wheel of Love -->
+          <div class="game-card glass-panel reveal text-center" id="wheel-container">
+            <h3 class="display-font">Wheel of Love</h3>
+            <p>Spin for your reward!</p>
+            <div class="wheel-wrapper mt-4">
+              <div class="pointer">▼</div>
+              <div class="wheel" id="love-wheel">
+                <div class="wheel-inner"></div>
+              </div>
+            </div>
+            <button class="luxury-btn mt-4" id="spin-wheel-btn">Spin!</button>
+            <p id="wheel-result" class="mt-4 script-font" style="font-size:1.5rem; color:var(--rose-pink);"></p>
+          </div>
+
+          <!-- Catch My Heart -->
+          <div class="game-card glass-panel reveal text-center">
+            <h3 class="display-font">Catch My Heart</h3>
+            <p>Tap the floating hearts to catch them!</p>
+            <button class="luxury-btn mt-4" id="start-catch-btn">Play Now</button>
+            <div id="catch-game-area" class="hidden">
+              <div class="score-board mb-4">Score: <span id="catch-score">0</span>%</div>
+              <div id="catch-canvas" style="position:relative; width:100%; height:200px; overflow:hidden; border:1px dashed var(--rose-pink);"></div>
+            </div>
+          </div>
+
+          <!-- Balloon Pop -->
+          <div class="game-card glass-panel reveal text-center">
+            <h3 class="display-font">Balloon Pop</h3>
+            <p>Pop the balloons for cute messages!</p>
+            <button class="luxury-btn mt-4" id="start-balloon-btn">Pop Balloons</button>
+            <div id="balloon-container" class="hidden" style="position:relative; width:100%; height:200px; overflow:hidden; border:1px dashed var(--soft-gold);"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Promises -->
+    <section id="promises" class="content-section">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">My Promises to You</h2>
+        <div class="promises-grid">
+          <div class="promise-card glass-panel reveal">
+            <div class="icon">✨</div>
+            <p class="display-font">I promise to always make you smile, even on the hardest days.</p>
+          </div>
+          <div class="promise-card glass-panel reveal">
+            <div class="icon">🤝</div>
+            <p class="display-font">I promise to stand beside you, no matter what comes our way.</p>
+          </div>
+          <div class="promise-card glass-panel reveal">
+            <div class="icon">🤪</div>
+            <p class="display-font">I promise to annoy you forever, because I love your reactions.</p>
+          </div>
+          <div class="promise-card glass-panel reveal">
+            <div class="icon">❤️</div>
+            <p class="display-font">I promise to love you more today than yesterday, but less than tomorrow.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Love Coupons -->
+    <section id="coupons" class="content-section alternate-bg">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Love Coupons 🎟️</h2>
+        <p class="text-center body-font reveal mb-4">Redeemable only in real life. Use them wisely!</p>
+        <div class="coupons-grid">
+          <div class="coupon-card reveal">
+            <div class="coupon-left">🎫</div>
+            <div class="coupon-right">
+              <h3>1 Free Hug</h3>
+              <p>Valid anytime, anywhere.</p>
+              <button class="redeem-btn mt-2">Redeem</button>
+            </div>
+          </div>
+          <div class="coupon-card reveal">
+            <div class="coupon-left">🍿</div>
+            <div class="coupon-right">
+              <h3>Movie Night</h3>
+              <p>Your choice of movie & snacks.</p>
+              <button class="redeem-btn mt-2">Redeem</button>
+            </div>
+          </div>
+          <div class="coupon-card reveal">
+            <div class="coupon-left">🍫</div>
+            <div class="coupon-right">
+              <h3>Unlimited Chocolates</h3>
+              <p>A sweet treat whenever you want.</p>
+              <button class="redeem-btn mt-2">Redeem</button>
+            </div>
+          </div>
+          <div class="coupon-card reveal">
+            <div class="coupon-left">🚗</div>
+            <div class="coupon-right">
+              <h3>Long Drive</h3>
+              <p>Music, breeze, and just us.</p>
+              <button class="redeem-btn mt-2">Redeem</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Secret Envelope -->
+    <section id="envelope-section" class="content-section text-center">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">A Secret Letter 💌</h2>
+        <div class="envelope-wrapper reveal">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body">
+               <span class="wax-seal-icon">❤️</span>
+            </div>
+          </div>
+          <button class="luxury-btn mt-4 glowing-btn" id="open-envelope-btn">Are you ready?</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Future Dreams (Polaroids style) -->
+    <section id="dreams" class="content-section">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Future Dreams Together</h2>
+        
+        <div class="polaroids-container">
+          <div class="polaroid-item reveal" style="--rotation: -5deg;">
+            <div class="polaroid">
+              <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400&auto=format&fit=crop" alt="Travel">
+              <p class="caption script-font">Travel the world</p>
+            </div>
+          </div>
+          <div class="polaroid-item reveal" style="--rotation: 3deg;">
+            <div class="polaroid">
+              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop" alt="Cafe">
+              <p class="caption script-font">Cute cafe dates</p>
+            </div>
+          </div>
+          <div class="polaroid-item reveal" style="--rotation: -2deg;">
+            <div class="polaroid">
+              <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=400&auto=format&fit=crop" alt="Wedding">
+              <p class="caption script-font">Our beautiful wedding</p>
+            </div>
+          </div>
+          <div class="polaroid-item reveal" style="--rotation: 4deg;">
+            <div class="polaroid">
+              <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=400&auto=format&fit=crop" alt="Home">
+              <p class="caption script-font">Our future home</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Future Adventure List -->
+    <section id="adventures" class="content-section alternate-bg">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Our Future Adventures 🗺️</h2>
+        <p class="text-center body-font reveal mb-4">Click to check off our bucket list together.</p>
+        <ul class="adventure-list reveal">
+          <li><span class="check-box"></span> Visit the mountains</li>
+          <li><span class="check-box"></span> Watch a beach sunset</li>
+          <li><span class="check-box"></span> Cute cafe date</li>
+          <li><span class="check-box"></span> Movie marathon all night</li>
+          <li><span class="check-box"></span> Cooking together</li>
+          <li><span class="check-box"></span> Travel abroad</li>
+          <li><span class="check-box"></span> Build our dream house</li>
+          <li><span class="check-box"></span> Our beautiful wedding 💍</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section: Funny Roast Corner -->
+    <section id="roast-corner" class="content-section text-center">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">The Roast Corner 😂</h2>
+        <div class="roast-cards reveal">
+          <div class="roast-card glass-panel">
+            <h3 class="display-font">Why you steal my heart...</h3>
+            <p>...and why you also always steal my fries. 🍟</p>
+          </div>
+          <div class="roast-card glass-panel">
+            <h3 class="display-font">Why I always lose arguments</h3>
+            <p>Because your cute pout is my biggest weakness. 🥺</p>
+          </div>
+          <div class="roast-card glass-panel">
+            <h3 class="display-font">Who is the real boss?</h3>
+            <p>Secretly you. Actually, not even secretly. 👑</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Selfie Booth -->
+    <section id="selfie-booth" class="content-section alternate-bg text-center">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Selfie Booth 📸</h2>
+        <p class="mb-4">Smile for the camera, baby!</p>
+        <div class="camera-wrapper reveal glass-panel">
+          <video id="camera-stream" autoplay playsinline class="hidden"></video>
+          <div id="camera-placeholder" class="placeholder-box">
+             <i class="ph ph-camera" style="font-size: 3rem;"></i><br>Allow Camera Access
+          </div>
+          <div id="sticker-overlay"></div>
+          <canvas id="photo-canvas" class="hidden"></canvas>
+        </div>
+        <div class="booth-controls mt-4 reveal">
+          <button class="luxury-btn" id="start-camera-btn">Start Camera</button>
+          <button class="luxury-btn outline" id="take-photo-btn" disabled>Take Photo</button>
+          <button class="luxury-btn outline" id="add-sticker-btn" disabled>Add ❤️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Open When Cards -->
+    <section id="open-when" class="content-section text-center">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Open When... 💌</h2>
+        <div class="cards-grid reveal">
+          <div class="open-card" data-msg="Close your eyes. I'm always hugging you right now.">
+            <div class="card-front">Open when you miss me</div>
+            <div class="card-back"></div>
+          </div>
+          <div class="open-card" data-msg="You are stronger than you know, and I am always here for you.">
+            <div class="card-front">Open when you're sad</div>
+            <div class="card-back"></div>
+          </div>
+          <div class="open-card" data-msg="Your smile is my favorite thing in the universe. Keep shining!">
+            <div class="card-front">Open when you're happy</div>
+            <div class="card-back"></div>
+          </div>
+          <div class="open-card" data-msg="Sending you the biggest, warmest virtual bear hug! 🐻">
+            <div class="card-front">Open when you need a hug</div>
+            <div class="card-back"></div>
+          </div>
+          <div class="open-card" data-msg="Think of our favorite memories until you drift away... Goodnight. ✨">
+            <div class="card-front">Open when you can't sleep</div>
+            <div class="card-back"></div>
+          </div>
+          <div class="open-card" data-msg="Happy Birthday my beautiful shazuuu Darlinggg! Today is all about you! 🎂">
+            <div class="card-front">Open on your birthday</div>
+            <div class="card-back"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Mood Detector -->
+    <section id="mood-detector" class="content-section alternate-bg text-center">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Mood Detector 🌈</h2>
+        <p class="display-font mb-4" style="font-size:1.5rem;">How are you feeling today?</p>
+        <div class="mood-btns reveal">
+          <button class="mood-btn" data-mood="happy">Happy 😄</button>
+          <button class="mood-btn" data-mood="sleepy">Sleepy 😴</button>
+          <button class="mood-btn" data-mood="missing">Missing Me 🥺</button>
+          <button class="mood-btn" data-mood="hungry">Hungry 🍕</button>
+          <button class="mood-btn" data-mood="angry">Angry 😤</button>
+          <button class="mood-btn" data-mood="cute">Cute 🥰</button>
+        </div>
+        <div id="mood-result" class="glass-panel hidden mt-4">
+          <h3 class="script-font" style="font-size:2rem; color:var(--wine-red);"></h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Love Meter -->
+    <section id="love-meter-section" class="content-section text-center">
+      <div class="container reveal">
+        <h2 class="display-font mb-4">How much do I love you?</h2>
+        <div class="love-meter-container">
+          <div class="meter-heart pulse-heart-large">❤️</div>
+          <div class="meter-text">
+            <span class="infinity-symbol">∞</span>
+            <span class="percent">%</span>
+          </div>
+        </div>
+        <p class="script-font mt-4" style="font-size: 1.5rem; color: var(--wine-red);">Because my love cannot be measured.</p>
+      </div>
+    </section>
+
+    <!-- Section: Love Letter -->
+    <section id="letter-section" class="content-section">
+      <div class="container">
+        <div class="luxury-paper reveal">
+          <div class="wax-seal">❤️</div>
+          <div class="gold-border"></div>
+          
+          <h2 class="letter-greeting script-font">My Dearest Sazuuuuuu,</h2>
+          
+          <div class="letter-body script-font">
+            <p>Happy Birthday to the most amazing, beautiful, and perfect girl in the world.</p>
+            <p>From the moment you entered my life, everything changed for the better. Your smile brightens my darkest days, and your laughter is my favorite melody. I never knew it was possible to love someone as deeply and completely as I love you.</p>
+            <p>On this special day, I want you to know that you are my everything. My best friend, my confidante, and my soulmate. I cherish every moment we share, and I cannot wait to create endless more memories with you.</p>
+            <p>May this year bring you as much happiness and joy as you bring to me every single day. You deserve the world, and I promise to spend my life trying to give it to you.</p>
+          </div>
+          
+          <div class="letter-signature script-font">
+            <p>Forever Yours,</p>
+            <p class="sig-name">Pussuuuu baby ❤️</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secret Hidden Heart (placed inconspicuously) -->
+    <div class="secret-trigger-container">
+      <span id="secret-trigger" class="secret-heart" title="Click me if you can find me">❤️</span>
+    </div>
+
+    <!-- Section: Birthday Cake -->
+    <section id="birthday-cake-section" class="content-section text-center alternate-bg">
+      <div class="container">
+        <h2 class="section-heading script-font reveal">Make a Wish 🎂</h2>
+        <p class="body-font reveal mb-4">Tap to blow out the candles!</p>
+        
+        <div class="cake-container reveal" id="cake-interaction">
+          <div class="cake-3d">
+            <div class="candle" id="candle1"><div class="flame"></div></div>
+            <div class="candle" id="candle2"><div class="flame"></div></div>
+            <div class="candle" id="candle3"><div class="flame"></div></div>
+            <div class="cake-top"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-bottom"></div>
+          </div>
+          <button class="luxury-btn mt-4 mt-cake" id="blow-candles-btn">Blow Candles 💨</button>
+        </div>
+        
+        <div id="cake-surprise" class="hidden mt-4">
+          <h3 class="script-font" style="font-size:2rem; color:var(--wine-red);">May all your dreams come true! ❤️</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Magic Sky Container (For Finale) -->
+    <div id="magic-sky-container" class="hidden"></div>
+
+    <!-- Grand Finale -->
+    <section id="finale" class="fullscreen-section finale-bg">
+      <div class="finale-content text-center">
+        <h1 class="finale-title script-font reveal">Happy Birthday</h1>
+        <h2 class="finale-subtitle display-font reveal">My Dearest Sazuuuuuu ❤️</h2>
+        <p class="finale-text body-font reveal">Thank you for making my world beautiful.</p>
+        
+        <button id="finale-btn" class="luxury-btn glowing-btn reveal">🎂 Happy Birthday, My Love ❤️</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="luxury-footer">
+      <p class="body-font">Made with endless love ❤️</p>
+      <p class="body-font">By <span class="script-font highlight">Pussuuuu baby</span> For <span class="script-font highlight">Sazuuuuuu</span></p>
+      <p class="script-font forever">Forever.</p>
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
